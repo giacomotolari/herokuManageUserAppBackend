@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3046;
-const mongoConnectString = process.env.MONGODB_URI;
+const mongoConnectString = process.env.MONGODB_URL;
 const client = new MongoClient(mongoConnectString);
 
 app.use(express.json());
