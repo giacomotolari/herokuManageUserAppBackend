@@ -13,7 +13,7 @@ app.use(cors());
 
 const execMongo = async (done) => {
   await client.connect();
-  const db = client.db('api001');
+  const db = client.db('app001');
   done(db);
 };
 
