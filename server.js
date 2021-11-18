@@ -1,14 +1,11 @@
 import express from 'express';
 import mongodb, { MongoClient } from 'mongodb';
 import cors from 'cors';
-// import dotenv from 'dotenv';
-// dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
-// const port = process.env.PORT || 3016;
-const port = 9000;
-// const mongoConnectString = process.env.MONGODB_URI;
-const mongoConnectString = 'mongodb://localhost:27017';
-
+const port = process.env.PORT || 3046;
+const mongoConnectString = process.env.MONGODB_URI;
 const client = new MongoClient(mongoConnectString);
 
 app.use(express.json());
@@ -58,14 +55,16 @@ app.post('/adduser', (req, res) => {
 });
 
 app.patch('/edituser/:id', (req, res) => {
-	const id = req.params.id;
-	const email = req.body.email;
-	execMongo(async (db) => {
-		const updateResult = await db.collection('users100').updateOne({ _id: new mongodb.ObjectId(id) }, { $set: { email } });
-		res.json({
-			result: updateResult
-		})
-	});
+  const id = req.params.id;
+  const email = req.body.email;
+  execMongo(async (db) => {
+    const updateResult = await db
+      .collection('users100')
+      .updateOne({ _id: new mongodb.ObjectId(id) }, { $set: { email } });
+    res.json({
+      result: updateResult,
+    });
+  });
 });
 
 app.listen(port, () =>
